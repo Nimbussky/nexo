@@ -9,10 +9,51 @@
       "avatarUrl": "",
       "passwordHash": "$2a$10$cDS7XUgf0.ORwm7Fi8O6J.etxpRU4sHlBb5KgIxFoRmUFCo8qfcCe",
       "createdAt": "2026-09-22T14:44:17.097Z"
+    },
+    {
+      "id": "fae807e6-1bba-42f9-8baa-37e868dab91e",
+      "email": "qa_user_1790091560864@nexo.com",
+      "username": "qa_user_1790091560864",
+      "displayName": "QA Certified Shinobi",
+      "bio": "Audited and verified by Danial Swarm.",
+      "avatarUrl": "",
+      "passwordHash": "$2a$10$k7PyC8dUXYPrUbqosXUD8.2YjAX8DJ2nu3x71j.7K1nM3zkrDnVHe",
+      "createdAt": "2026-09-22T15:39:21.167Z"
+    },
+    {
+      "id": "5c5e0a46-dec3-4683-bc9d-514b9878e3ad",
+      "email": "qa_peer_1790091561912@nexo.com",
+      "username": "qa_peer_1790091561912",
+      "displayName": "QA Peer User",
+      "bio": "",
+      "avatarUrl": "",
+      "passwordHash": "$2a$10$mlw.xZvTYtc1k3UIfu11geP.N7M7tEUj0oCi1JwurzvUro1AgG4Te",
+      "createdAt": "2026-09-22T15:39:22.079Z"
     }
   ],
-  "follows": [],
+  "follows": [
+    {
+      "followerId": "fae807e6-1bba-42f9-8baa-37e868dab91e",
+      "followingId": "5c5e0a46-dec3-4683-bc9d-514b9878e3ad"
+    }
+  ],
   "posts": [
+    {
+      "id": "c1e9db55-3371-4ee9-8a48-b7c1e8e898af",
+      "authorId": "5c5e0a46-dec3-4683-bc9d-514b9878e3ad",
+      "type": "text",
+      "body": "Peer post that user 1 should see in Feed!",
+      "mediaUrl": "",
+      "createdAt": "2026-09-22T15:39:22.135Z"
+    },
+    {
+      "id": "c34a00f5-4507-4611-b2bc-24b153318da7",
+      "authorId": "fae807e6-1bba-42f9-8baa-37e868dab91e",
+      "type": "text",
+      "body": "Ruthless QA Post #1: Verified system integrity.",
+      "mediaUrl": "",
+      "createdAt": "2026-09-22T15:39:21.910Z"
+    },
     {
       "id": "post_demo_1",
       "authorId": "user_demo_1",
