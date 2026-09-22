@@ -4,6 +4,8 @@ import { readDB } from "@/lib/db";
 import Nav from "@/components/Nav";
 import PostCard from "@/components/PostCard";
 
+export const dynamic = "force-dynamic";
+
 export default function ExplorePage() {
   const me = getCurrentUser();
   if (!me) redirect("/login");

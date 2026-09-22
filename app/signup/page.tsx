@@ -7,19 +7,29 @@ import Link from "next/link";
 export default function SignupPage() {
   const [form, setForm] = useState({ email: "", username: "", displayName: "", password: "" });
   const [error, setError] = useState("");
-  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    const res = await fetch("/api/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    const data = await res.json();
-    if (!res.ok) return setError(data.error);
-    router.push("/feed");
-    router.refresh();
+    setError("");
+    setLoading(true);
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "Signup failed");
+        setLoading(false);
+        return;
+      }
+      window.location.href = "/feed";
+    } catch (err: any) {
+      setError(err.message || "Network error. Please try again.");
+      setLoading(false);
+    }
   }
 
   return (

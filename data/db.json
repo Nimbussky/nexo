@@ -1,5 +1,25 @@
 {
-  "users": [],
+  "users": [
+    {
+      "id": "user_demo_1",
+      "email": "aakash@nexo.com",
+      "username": "aakash",
+      "displayName": "Aakash Chavan",
+      "bio": "Building Nexo Social Platform 🚀",
+      "avatarUrl": "",
+      "passwordHash": "$2a$10$cDS7XUgf0.ORwm7Fi8O6J.etxpRU4sHlBb5KgIxFoRmUFCo8qfcCe",
+      "createdAt": "2026-09-22T14:44:17.097Z"
+    }
+  ],
   "follows": [],
-  "posts": []
+  "posts": [
+    {
+      "id": "post_demo_1",
+      "authorId": "user_demo_1",
+      "type": "text",
+      "body": "Welcome to Nexo! Real-time social platform is live and running.",
+      "mediaUrl": "",
+      "createdAt": "2026-09-22T14:44:17.098Z"
+    }
+  ]
 }

@@ -7,8 +7,7 @@ export default function Nav({ username }: { username?: string }) {
   const router = useRouter();
   async function logout() {
     await fetch("/api/auth/logout", { method: "POST" });
-    router.push("/");
-    router.refresh();
+    window.location.href = "/login";
   }
   return (
     <header className="sticky top-0 z-20 border-b border-line bg-ink/80 backdrop-blur">

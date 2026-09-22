@@ -5,6 +5,8 @@ import Nav from "@/components/Nav";
 import Composer from "@/components/Composer";
 import PostCard from "@/components/PostCard";
 
+export const dynamic = "force-dynamic";
+
 export default function FeedPage() {
   const me = getCurrentUser();
   if (!me) redirect("/login");
