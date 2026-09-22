@@ -14,15 +14,28 @@ export type Follow = {
   followingId: string;
 };
 
-export type PostType = "text" | "image" | "video";
+export type PostType = "text" | "image" | "video" | "blog";
+
+export type Comment = {
+  id: string;
+  authorId: string;
+  text: string;
+  createdAt: string;
+  author?: PublicUser;
+};
 
 export type Post = {
   id: string;
   authorId: string;
   type: PostType;
+  title?: string;
   body: string;
   mediaUrl: string;
+  likes: string[]; // Array of User IDs
+  comments: Comment[];
+  sharesCount: number;
   createdAt: string;
+  author?: PublicUser;
 };
 
 export type DB = {

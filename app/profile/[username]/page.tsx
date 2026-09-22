@@ -162,7 +162,7 @@ export default function ProfilePage() {
         <div className="space-y-4">
           {data.posts && data.posts.length > 0 ? (
             data.posts.map((p: any) => (
-              <PostCard key={p.id} post={{ ...p, author: data.user }} />
+              <PostCard key={p.id} post={{ ...p, author: data.user }} currentUserId={me?.id} />
             ))
           ) : (
             <div className="glass-3d-card rounded-2xl p-6 text-center text-sm text-mute">

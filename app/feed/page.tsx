@@ -19,6 +19,12 @@ export default function FeedPage() {
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
     .map((p) => ({
       ...p,
+      likes: p.likes || [],
+      comments: (p.comments || []).map((c) => {
+        const cAuthor = db.users.find((u) => u.id === c.authorId);
+        return { ...c, author: cAuthor ? publicUser(cAuthor) : undefined };
+      }),
+      sharesCount: p.sharesCount || 0,
       author: (() => {
         const u = db.users.find((x) => x.id === p.authorId);
         return u ? publicUser(u) : null;
@@ -56,7 +62,7 @@ export default function FeedPage() {
         ) : (
           <div className="space-y-4">
             {posts.map((p) => (
-              <PostCard key={p.id} post={p} />
+              <PostCard key={p.id} post={p as any} currentUserId={me.id} />
             ))}
           </div>
         )}

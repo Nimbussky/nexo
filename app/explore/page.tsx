@@ -15,7 +15,18 @@ export default function ExplorePage() {
     .slice(0, 50)
     .map((p) => {
       const u = db.users.find((x) => x.id === p.authorId);
-      return { ...p, author: u ? publicUser(u) : null };
+      const hydratedComments = (p.comments || []).map((c) => {
+        const cAuthor = db.users.find((user) => user.id === c.authorId);
+        return { ...c, author: cAuthor ? publicUser(cAuthor) : undefined };
+      });
+
+      return {
+        ...p,
+        likes: p.likes || [],
+        comments: hydratedComments,
+        sharesCount: p.sharesCount || 0,
+        author: u ? publicUser(u) : null,
+      };
     });
 
   return (
@@ -23,7 +34,7 @@ export default function ExplorePage() {
       <Nav username={me.username} />
       <main className="mx-auto max-w-2xl px-4 pb-16">
         
-        {/* Header with Title and Pills */}
+        {/* Header with Title and Category Filters */}
         <div className="mb-6 flex flex-col gap-3">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white flex items-center gap-2">
@@ -40,13 +51,13 @@ export default function ExplorePage() {
               ✦ All Streams
             </button>
             <button className="px-3.5 py-1.5 rounded-full bg-white/5 text-slate-400 hover:text-white border border-white/10">
-              📸 Media
+              📰 Blog Articles
             </button>
             <button className="px-3.5 py-1.5 rounded-full bg-white/5 text-slate-400 hover:text-white border border-white/10">
-              ⚡ Discussions
+              🎬 Videos & Reels
             </button>
             <button className="px-3.5 py-1.5 rounded-full bg-white/5 text-slate-400 hover:text-white border border-white/10">
-              🔥 Trending
+              📸 Photos
             </button>
           </div>
         </div>
@@ -54,7 +65,7 @@ export default function ExplorePage() {
         {/* Post Grid */}
         <div className="space-y-4">
           {posts.map((p) => (
-            <PostCard key={p.id} post={p} />
+            <PostCard key={p.id} post={p as any} currentUserId={me.id} />
           ))}
         </div>
       </main>
