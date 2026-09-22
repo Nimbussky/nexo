@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function LoginPage() {
@@ -29,7 +28,6 @@ export default function LoginPage() {
         setLoading(false);
         return;
       }
-      // Force full document navigation to guarantee the session cookie is dispatched
       window.location.href = "/feed";
     } catch (err: any) {
       setError(err.message || "Network error. Please try again.");
@@ -44,47 +42,84 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-6">
-      <h1 className="mb-2 text-3xl font-semibold">Welcome back</h1>
-      <p className="mb-6 text-sm text-mute">Sign in to your Nexo account</p>
+    <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-6 py-12 relative z-10">
+      
+      {/* 3D Glass Authentication Container */}
+      <div className="glass-3d-panel rounded-3xl p-8 md:p-10 border border-white/10 shadow-glass-3d relative overflow-hidden">
+        
+        {/* Glow Accent */}
+        <div className="flex justify-center mb-6">
+          <div className="h-14 w-14 rounded-2xl bg-gradient-to-tr from-accent to-cyanLight flex items-center justify-center font-black text-white text-2xl shadow-glass-glow">
+            N
+          </div>
+        </div>
 
-      <form onSubmit={submit} className="space-y-3">
-        <input
-          type="email"
-          required
-          className="w-full rounded-xl border border-line bg-surface px-4 py-3 outline-none focus:border-white/30"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          required
-          className="w-full rounded-xl border border-line bg-surface px-4 py-3 outline-none focus:border-white/30"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {error && <p className="text-sm text-red-400 bg-red-950/30 border border-red-900/50 rounded-xl p-3">{error}</p>}
+        <h1 className="mb-2 text-2xl md:text-3xl font-bold text-center tracking-tight text-white">
+          Welcome back
+        </h1>
+        <p className="mb-8 text-center text-xs md:text-sm text-slate-400">
+          Enter your credentials to access the spatial feed
+        </p>
+
+        <form onSubmit={submit} className="space-y-4">
+          <div>
+            <label className="block text-xs font-semibold text-slate-400 mb-1.5 ml-1">
+              EMAIL ADDRESS
+            </label>
+            <input
+              type="email"
+              required
+              className="glass-input w-full rounded-2xl px-4 py-3 outline-none text-sm text-white placeholder:text-slate-500"
+              placeholder="name@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-slate-400 mb-1.5 ml-1">
+              PASSWORD
+            </label>
+            <input
+              type="password"
+              required
+              className="glass-input w-full rounded-2xl px-4 py-3 outline-none text-sm text-white placeholder:text-slate-500"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          {error && (
+            <p className="text-xs text-rose-400 bg-rose-500/10 border border-rose-500/20 rounded-xl p-3">
+              {error}
+            </p>
+          )}
+
+          <button
+            disabled={loading}
+            className="glass-button-primary w-full py-3.5 rounded-full font-bold text-sm tracking-wide transition disabled:opacity-50 mt-2 shadow-glass-glow"
+          >
+            {loading ? "Decrypting Session..." : "Sign In to Nexo"}
+          </button>
+        </form>
+
         <button
-          disabled={loading}
-          className="w-full rounded-full bg-accent py-3 font-medium transition opacity-100 disabled:opacity-50"
+          type="button"
+          onClick={fillDemo}
+          className="mt-4 w-full rounded-full glass-pill py-2.5 text-xs text-accentLight hover:text-white transition font-medium hover:bg-white/10"
         >
-          {loading ? "Logging in..." : "Log in"}
+          ⚡ Autofill Verified Demo (aakash@nexo.com)
         </button>
-      </form>
 
-      <button
-        type="button"
-        onClick={fillDemo}
-        className="mt-3 w-full rounded-full border border-line py-2.5 text-xs text-mute hover:text-white transition"
-      >
-        Click to fill Demo Account (aakash@nexo.com)
-      </button>
+        <p className="mt-6 text-center text-xs text-slate-400">
+          Don&apos;t have an account?{" "}
+          <Link href="/signup" className="text-accentLight hover:text-white font-semibold underline underline-offset-4 ml-1">
+            Create account
+          </Link>
+        </p>
+      </div>
 
-      <p className="mt-4 text-center text-sm text-mute">
-        New here? <Link href="/signup" className="text-white underline">Create account</Link>
-      </p>
     </main>
   );
 }

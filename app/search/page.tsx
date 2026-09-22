@@ -25,23 +25,52 @@ export default function SearchPage() {
   return (
     <>
       <Nav username={me?.username} />
-      <main className="mx-auto max-w-xl px-4 py-6">
-        <input
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder="Search people..."
-          className="mb-4 w-full rounded-full border border-line bg-surface px-5 py-3 outline-none"
-        />
-        <div className="space-y-2">
+      <main className="mx-auto max-w-2xl px-4 pb-16">
+        
+        {/* Apple 3D Search Bar */}
+        <div className="relative mb-6">
+          <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-slate-400">
+            🔍
+          </div>
+          <input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Search creators, keywords, or topics across the spatial graph..."
+            className="glass-input w-full rounded-2xl pl-11 pr-5 py-3.5 outline-none text-sm text-white placeholder:text-slate-500 shadow-glass-card"
+          />
+        </div>
+
+        {/* Results */}
+        <div className="space-y-3">
+          {users.length === 0 && q && (
+            <p className="glass-3d-card rounded-2xl p-6 text-center text-sm text-mute">
+              No matching profiles found for &ldquo;{q}&rdquo;.
+            </p>
+          )}
+
           {users.map((u) => (
             <Link
               key={u.id}
               href={`/profile/${u.username}`}
-              className="block rounded-2xl border border-line bg-surface p-4 hover:border-accent"
+              className="glass-3d-card block rounded-2xl p-4 md:p-5 hover:border-accentLight transition-all"
             >
-              <p className="font-medium">{u.displayName}</p>
-              <p className="text-sm text-mute">@{u.username}</p>
-              {u.bio && <p className="mt-1 text-sm text-mute">{u.bio}</p>}
+              <div className="flex items-center gap-3.5">
+                <div className="h-11 w-11 rounded-full bg-gradient-to-tr from-accent/30 to-cyanLight/20 border border-white/20 flex items-center justify-center font-bold text-slate-100 text-sm shadow-glass-card">
+                  {(u.displayName || u.username || "?").slice(0, 1).toUpperCase()}
+                </div>
+                <div>
+                  <p className="font-semibold text-white tracking-tight text-sm md:text-base flex items-center gap-1.5">
+                    {u.displayName}
+                    <span className="text-xs text-accent">✓</span>
+                  </p>
+                  <p className="text-xs text-mute font-mono">@{u.username}</p>
+                </div>
+              </div>
+              {u.bio && (
+                <p className="mt-3 text-xs md:text-sm text-slate-300 pl-14 leading-relaxed">
+                  {u.bio}
+                </p>
+              )}
             </Link>
           ))}
         </div>

@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { getCurrentUser, publicUser } from "@/lib/auth";
 import { readDB } from "@/lib/db";
 import Nav from "@/components/Nav";
@@ -27,16 +28,38 @@ export default function FeedPage() {
   return (
     <>
       <Nav username={me.username} />
-      <main className="mx-auto max-w-xl space-y-4 px-4 py-6">
+      <main className="mx-auto max-w-2xl px-4 pb-16">
         <Composer />
-        {posts.length === 0 && (
-          <p className="rounded-2xl border border-line bg-surface p-6 text-mute">
-            Your feed is quiet. Search people and follow them, or share your first post.
-          </p>
+
+        {posts.length === 0 ? (
+          <div className="glass-3d-card rounded-3xl p-8 text-center my-6">
+            <div className="text-4xl mb-3">🌌</div>
+            <h3 className="text-lg font-bold text-white mb-2">Your Feed is Peaceful</h3>
+            <p className="text-sm text-mute max-w-md mx-auto mb-6">
+              Connect with fellow creators or explore the global stream to discover posts from across the network.
+            </p>
+            <div className="flex justify-center gap-3">
+              <Link
+                href="/explore"
+                className="glass-button-primary px-5 py-2.5 rounded-full text-xs font-semibold"
+              >
+                Explore Global Feed
+              </Link>
+              <Link
+                href="/search"
+                className="glass-button-secondary px-5 py-2.5 rounded-full text-xs font-semibold text-slate-200"
+              >
+                Find Creators
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {posts.map((p) => (
+              <PostCard key={p.id} post={p} />
+            ))}
+          </div>
         )}
-        {posts.map((p) => (
-          <PostCard key={p.id} post={p} />
-        ))}
       </main>
     </>
   );
