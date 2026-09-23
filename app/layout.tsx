@@ -4,8 +4,13 @@ import ThreeBackground from "@/components/ThreeBackground";
 import CursorSpotlight from "@/components/CursorSpotlight";
 
 export const metadata: Metadata = {
-  title: "Nexo — The $10,000 Spatial Social Experience",
-  description: "Award-winning 3D spatial social platform engineered with Apple VisionOS glassmorphism, Three.js WebGL physics, and real-time feeds.",
+  title: "Nexo — Spatial Social Platform",
+  description: "A premium social network built for connection, not noise. Real profiles, real posts, cinematic interface.",
+  openGraph: {
+    title: "Nexo — Spatial Social Platform",
+    description: "Connect without the noise. Text, photo, and video in a refined spatial experience.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
